@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
+    <link rel="manifest" href="static/site.webmanifest">
+    <title>О нас</title>
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E8E8E8;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #0088cc;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0077b3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+        h5{
+            color: #E8E8E8;
+            text-align: center;
+        }
+        p{
+            color: darkslategrey;
+            text-align: center;
+        }
+        .hamburger {
+            position: fixed; /* Фиксированное положение */
+            top: 20px; /* Отступ сверху */
+            right: 20px; /* Отступ справа */
+            cursor: pointer; /* Указатель при наведении */
+            z-index: 1001; /* Убедитесь, что кнопка выше других элементов */
+            display: flex;
+            flex-direction: column;
+            width: 30px;
+            margin: 20px;
+            transition: transform 0.3s;
+        }
+
+        .bar {
+            height: 4px;
+            width: 100%;
+            background-color: black;
+            margin: 3px 0;
+        }
+
+        .menu {
+            display: flex; /* Измените на flex, чтобы использовать opacity */
+            opacity: 0; /* Начальное состояние - скрыто */
+            transform: translateY(-100%); /* Начальная позиция - выше экрана */
+            transition: opacity 1s ease, transform 1s ease; /* Плавный переход для opacity и transform */
+            position: fixed; /* Изменено на fixed, чтобы оставаться на месте */
+            top: 0; /* Позиция меню */
+            left: 0;
+            right: 0;
+            height: 50vh;
+            background-color: whitesmoke;
+            border-radius: 0 0 50% 50%;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Вертикальное выравнивание */
+            visibility: hidden; /* Скрыто по умолчанию */
+            z-index: 1000; /* Убедитесь, что меню ниже гамбургера */
+        }
+
+        .menu a {
+            padding: 15px;
+            cursor: pointer;
+            color: black;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #c2ebff; /* Цвет при наведении */
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: black;
+            z-index: 1; /* Убедитесь, что кнопка закрытия выше других элементов */
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px); /* Первая полоска поворачивается и смещается */
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0; /* Вторая полоска исчезает */
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px); /* Третья полоска поворачивается и смещается */
+        }
+    </style>
+    <div class="header">
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+    <div class="menu" id="menu">
+        <a href="/home">Главная</a>
+        <a href="/order">Корзина</a>
+        <a href="/about">О нас</a>
+        <a href="/profile">Профиль</a>
+    </div>
+    
+    <h5>.</h5>
+    <h5>.</h5>
+    <div class="container">
+        <p>Какой то текст я не знаю что написать</p>
+    </div>
+    <h5>.</h5>
+    <div class="container">
+        <div id="map" style="width:300px; height: 200px;"></div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            const hamburger = document.getElementById('hamburger');
+
+            hamburger.classList.toggle('active');
+
+            if (menu.style.visibility === 'visible') {
+                menu.style.opacity = '0';
+                menu.style.transform = 'translateY(-100%)';
+                menu.style.visibility = 'hidden';
+            } else {
+                menu.style.visibility = 'visible';
+                setTimeout(() => {
+                    menu.style.opacity = '1';
+                    menu.style.transform = 'translateY(0)';
+                }, 10);
+            }
+        }
+    </script>
+
+<script type="text/javascript">
+    var map;
+
+    DG.then(function () {
+        map = DG.map('map', {
+            center: [53.629959, 55.934464],
+            zoom: 20
+        });
+
+        DG.marker([53.629959, 55.934464]).addTo(map).bindPopup('Вы кликнули по мне!');
+    });
+</script>
+</body>
+</html>

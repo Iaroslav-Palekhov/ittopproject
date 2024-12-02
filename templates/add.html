@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
+    <link rel="manifest" href="static/site.webmanifest">
+    <title>Добавить товар</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E8E8E8;
+            padding: 20px;
+        }
+        .container {
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #0088cc;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0077b3;
+        }
+        .product {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Добавить товар</h2>
+    <form method="POST" action="{{ url_for('add_product') }}" enctype="multipart/form-data">
+        <div class="input-group">
+            <input type="text" name="product_name" placeholder="Название" required>
+        </div>
+        <div class="input-group">
+            <input type="number" name="product_price" placeholder="Цена" required>
+        </div>
+        <div class="input-group">
+            <input type="file" name="product_image" accept="image/*" required>
+        </div>
+        <button class="btn" type="submit">Добавить товар</button>
+    </form>
+
+    <h2>Существующие товары</h2>
+    {% for product in products %}
+    <div class="product">
+        <p>{{ product['name'] }} - {{ product['price'] }} рублей</p>
+        <img src="{{ product['image_path'] }}" alt="{{ product['name'] }}">
+        <form method="POST" action="{{ url_for('delete_product', product_id=loop.index0) }}">
+            <button class="btn" type="submit">Удалить</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

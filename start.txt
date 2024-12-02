@@ -1,0 +1,5 @@
+nohup python3 flask_app.py &   - запуск
+
+остановка
+ps aux | grep python
+kill 1234  - 1234 это PID
